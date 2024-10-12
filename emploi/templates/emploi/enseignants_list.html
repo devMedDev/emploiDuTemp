@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Liste des Enseignants{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Liste des Enseignants</h2>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Nombre d'heures par semaine</th>
+                <th>Jour de repos</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enseignant in enseignants %}
+            <tr>
+                <td>{{ enseignant.nom }}</td>
+                <td>{{ enseignant.nombre_heures_par_semaine }} heures</td>
+                <td>{{ enseignant.jour_de_repos }}</td>
+                <td>
+                    <a href="{% url 'enseignant_timetable' enseignant.id %}" class="btn btn-primary btn-sm">Voir emploi du temps</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

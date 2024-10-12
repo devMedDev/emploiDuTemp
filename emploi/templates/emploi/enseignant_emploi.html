@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emploi du Temps - Enseignant</title>
+</head>
+<body>
+    <h1>Emploi du Temps de {{ enseignant.nom }}</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Jour</th>
+                <th>Horaire</th>
+                <th>Classe</th>
+                <th>Matière</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jour, creneaux in emploi_par_jour.items %}
+            <tr>
+                <td rowspan="{{ creneaux|length }}">{{ jour }}</td>
+                {% for creneau in creneaux %}
+                <td>{{ creneau.horaire_debut }} - {{ creneau.horaire_fin }}</td>
+                <td>{{ creneau.classe.nom }}</td>
+                <td>{{ creneau.matiere.nom }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

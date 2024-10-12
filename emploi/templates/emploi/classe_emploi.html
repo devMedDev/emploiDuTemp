@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Emploi du Temps de la Classe {{ classe.nom }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Emploi du Temps pour la Classe {{ classe.nom }}</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Jour</th>
+                <th>Horaire</th>
+                <th>Enseignant</th>
+                <th>Matière</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for creneau in emploi_du_temps %}
+            <tr>
+                <td>{{ creneau.jour }}</td>
+                <td>{{ creneau.horaire_debut }} - {{ creneau.horaire_fin }}</td>
+                <td>{{ creneau.enseignant.nom }}</td>
+                <td>{{ creneau.matiere.nom }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

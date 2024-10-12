@@ -1,0 +1,44 @@
+{% load custom_filters %}
+{% extends 'base.html' %}
+{% block title %}Emploi du Temps de {{ enseignant.nom }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Emploi du Temps pour {{ enseignant.nom }}</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Heure/Jour</th>
+                {% for jour in jours %}
+                    <th>{{ jour }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for horaire in horaires %}
+            <tr>
+                <td>{{ horaire.horaire }}</td>
+                {% for jour in jours %}
+                    {% with creneau=emploi_du_temps|get_item:jour|get_item:horaire.horaire %}
+                        <td class="{% if creneau %}table-success{% else %}table-danger{% endif %}">
+                            {% if creneau %}
+                                <span class="text-success">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <strong>{{ creneau.classe.nom }}</strong><br>
+                                    <span class="badge bg-info text-dark">{{ creneau.matiere.nom }}</span><br>
+                                    <i class="bi bi-person-fill"></i> {{ creneau.enseignant.nom }}
+                                </span>
+                            {% else %}
+                                <span class="text-danger">
+                                    <i class="bi bi-x-circle-fill"></i> Libre
+                                </span>
+                            {% endif %}
+                        </td>
+                    {% endwith %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

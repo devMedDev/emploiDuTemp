@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Liste des Classes{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Liste des Classes</h2>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Niveau</th>
+                <th>Nombre d'étudiants</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for classe in classes %}
+            <tr>
+                <td>{{ classe.nom }}</td>
+                <td>{{ classe.niveau.nom }}</td>
+                <td>{{ classe.nombre_etudiants }}</td>
+                <td>
+                    <a href="{% url 'classe_timetable' classe.id %}" class="btn btn-primary btn-sm">Voir emploi du temps</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
